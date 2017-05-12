@@ -7,26 +7,25 @@ function preload() {
 }
 
 function setup () {
-    createCanvas(
-        window.innerWidth,
-        window.innerHeight
-    );
+    createCanvas(window.innerWidth, window.innerHeight);
     track.setVolume(0.2);
     track.play();
     background(0);
-    var x = 0;
-    var y = random(-500,0);
+    var x = 0;  // Initializing x coordinate to the top left corner
+    var y = random(-1000,0);
+
+    // Creating Symbols
     for (var i = 0; i < width/symbolSize ; i++) {
         stream = new Stream();
         stream.generateSymbols(x, y);
         streams.push(stream);
-        x += symbolSize;
+        x += symbolSize + 5;    // Gradualling increasing the x-coordinate of the symbol
     }
     textSize(symbolSize);
 }
 
 function draw() {
-    background(0, 100);
+    background(0, 100);     // White background with 100 opacity
     streams.forEach(function(stream) {
         stream.render();
     });
@@ -37,14 +36,12 @@ function Symbol(x, y, speed, first) {
     this.y = y;
     this.speed = speed;
     this.first = first;
-    this.value;
-    this.switchInterval = round(random(2, 20));
+    this.value;     // Character Value
+    this.switchInterval = round(random(2, 20));     // Rate of change of value of the symbol
 
     this.setToRandomSymbol = function() {
         if (frameCount % this.switchInterval == 0) {
-            this.value = String.fromCharCode(
-                0x30A0 + round(random(0, 96))
-            );
+            this.value = String.fromCharCode(0x30A0 + round(random(0, 96)));
         }
     }
 
@@ -55,9 +52,10 @@ function Symbol(x, y, speed, first) {
 
 function Stream () {
     this.symbols = [];
-    this.totalSymbols = round(random(5, 30));
-    this.speed = random(5,15);
+    this.totalSymbols = round(random(10, 30));
+    this.speed = random(10,25);
 
+    // Creates an array of symbols
     this.generateSymbols = function(x, y) {
         var first = round(random(0, 4)) == 1;
         for (var i = 0; i < this.totalSymbols; i++) {
