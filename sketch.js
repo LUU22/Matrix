@@ -8,8 +8,9 @@ function preload() {
 
 function setup () {
     createCanvas(window.innerWidth, window.innerHeight);
-    track.setVolume(0.2);
+    track.setVolume(0.5);
     track.play();
+    track.loop(330);
     background(0);
     var x = 0;  // Initializing x coordinate to the top left corner
     var y = random(-1000,0);
